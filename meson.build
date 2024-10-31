@@ -1,6 +1,6 @@
 project('AhogeUtil', 'cpp', version: '0.0.1')
 
-src_list = ['ahoge_string.cpp', 'error.cpp', 'vector.cpp', '']
+src_list = ['ahoge_string.cpp', 'error.cpp', 'vector.cpp']
 
 lib = static_library('AhogeUtil', src_list)
 
