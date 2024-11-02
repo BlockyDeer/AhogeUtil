@@ -52,6 +52,9 @@ public:
 
 	rune operator[](size_t index) noexcept;
 
+	bool equals(String const &other) noexcept;
+	bool operator==(String const &other) noexcept;
+
 	String add(char *str) const noexcept;
 	String add(std::string const &str) const noexcept;
 	String add(String const &other) const noexcept;
