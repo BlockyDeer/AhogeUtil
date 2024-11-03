@@ -11,9 +11,7 @@
 #include "ahoge_string.hpp"
 
 namespace AhogeUtil {
-Error::Error(String const &str) { msg = String(str); }
-
-Error::Error(std::string const &msg) { this->msg = msg; }
+Error::Error(String const &msg) { this->msg = msg; }
 
 bool Error::operator==(std::nullptr_t *) const { return msg.is_empty(); }
 bool Error::operator!=(std::nullptr_t *) const { return !msg.is_empty(); }
@@ -35,5 +33,9 @@ void Error::warning() {
 	if (operator!=(nullptr)) {
 		LOG(WARNING) << msg.to_utf8();
 	}
+}
+
+void panic(String &msg) {
+	LOG(FATAL) << msg.to_utf8();
 }
 }  // namespace AhogeUtil

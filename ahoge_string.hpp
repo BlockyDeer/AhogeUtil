@@ -39,7 +39,7 @@ public:
 	String(rune *ch) noexcept;
 	String(std::u32string const &str) noexcept;
 	String(std::vector<rune> &vec) noexcept;
-	String(std::string const &str) noexcept;
+	String(const char *str) noexcept;
 	explicit String(String const &other) noexcept;
 	String(String &&other) noexcept;
 	String &operator=(String const &other) noexcept = default;

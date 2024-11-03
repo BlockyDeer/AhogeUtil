@@ -20,8 +20,7 @@ private:
 
 public:
 	Error() = default;
-	Error(std::string const &msg);
-	Error(String const &str);
+	Error(String const &msg);
 	~Error() = default;
 
 	bool operator==(std::nullptr_t *p) const;
@@ -36,4 +35,6 @@ public:
 	void panic();
 	void warning();
 };
+
+void panic(String &msg);
 }  // namespace AhogeUtil

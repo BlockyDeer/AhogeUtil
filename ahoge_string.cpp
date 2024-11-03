@@ -48,22 +48,23 @@ void String::cleanup() noexcept {
 
 String::String() noexcept {}
 
-String::String(std::string const &str) noexcept {
-	size_t in_bytes_left = str.size();
+String::String(const char *str) noexcept {
+	std::string std_str(str);
+	size_t in_bytes_left = std_str.size();
 	size_t out_bytes_left = in_bytes_left * sizeof(uint32_t);
 
-	char *in_buf = new char[str.size()];
+	char *in_buf = new char[std_str.size()];
 	char *in_buf_mem = in_buf;
-	std::memcpy(in_buf, str.data(), str.size());
+	std::memcpy(in_buf, std_str.data(), std_str.size());
 
-	data.resize(str.size() * sizeof(uint32_t));
+	data.resize(std_str.size() * sizeof(uint32_t));
 	char *out_buf = (char *)data.data();
 
 	if (iconv(u8tou32, &in_buf, &in_bytes_left, &out_buf,
 		  &out_bytes_left) == ICONV_FAILED) {
 		// TODO: 错误处理
 	}
-	data.resize((str.size() * sizeof(uint32_t) - out_bytes_left) /
+	data.resize((std_str.size() * sizeof(uint32_t) - out_bytes_left) /
 		    sizeof(uint32_t));
 
 	delete[] in_buf_mem;
