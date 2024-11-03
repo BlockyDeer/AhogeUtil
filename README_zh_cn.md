@@ -31,6 +31,29 @@ mkdir build
 meson compile -C build
 ```
 
+## 使用例(`AhogeUtil::String`)
+
+```
+	// 初始化AhogeUtil::String中使用的iconv
+	AhogeUtil::Error err = AhogeUtil::String::init();
+	// 出现错误退出
+	err.panic();
+
+	AhogeUtil::String str("我能吞下玻璃而不伤身体abc");
+	std::cout << "String size: " << str.size()
+		  << std::endl;	                        // 应该是14
+	// 输出每一个代码点
+	str.for_each(
+		[](AhogeUtil::rune &r) { std::cout << std::hex << r << " "; });
+	std::cout << std::endl;
+
+	AhogeUtil::String to_replace = "玻璃";
+	AhogeUtil::String replacing = "wood";
+	std::cout << str.find(to_replace) << std::endl;  // 应该是4
+	AhogeUtil::String replaced = str.replace_all(to_replace, replacing);
+	std::cout << replaced.to_utf8() << std::endl;    // 我能吞下wood而不伤身体abc
+```
+
 ## 提示
 
 从`std::string`或C风格的字符串`char *`构造`AhogeUtil::String`时，构造函数会假设输入的字符串是UTF-8编码的，如果你使用的不是UTF-8。你将不得不自己修复这一问题。 ：）（非常简单的）

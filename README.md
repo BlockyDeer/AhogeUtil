@@ -31,9 +31,32 @@ mkdir build
 meson compile -C build
 ```
 
+## Usage Example(`AhogeUtil::String`)
+
+```
+	// initialize the iconv which is used in AhogeUtil::String
+	AhogeUtil::Error err = AhogeUtil::String::init();
+	// panic if there is a error
+	err.panic();
+
+	AhogeUtil::String str("我能吞下玻璃而不伤身体abc");
+	std::cout << "String size: " << str.size()
+		  << std::endl;	                        // That should be 14
+	// output each code point
+	str.for_each(
+		[](AhogeUtil::rune &r) { std::cout << std::hex << r << " "; });
+	std::cout << std::endl;
+
+	AhogeUtil::String to_replace = "玻璃";
+	AhogeUtil::String replacing = "wood";
+	std::cout << str.find(to_replace) << std::endl;  // That should be 4
+	AhogeUtil::String replaced = str.replace_all(to_replace, replacing);
+	std::cout << replaced.to_utf8() << std::endl;    // 我能吞下wood而不伤身体abc
+```
+
 ## Tips
 
-When constructing `AhogeUtil::String` from `std::string` or a C-style string `char *`, the constructor assumes the input string is UTF-8 encoded. If you are not using UTF-8, you have to resolve this issue yourself. ;) *It's easy, trust me.*
+When constructing `AhogeUtil::String` from `std::string` or a C-style string `char *`, the constructor assumes the input string is UTF-8 encoded. If you are not using UTF-8, you have to resolve this yourself. ;) *It's easy, trust me.*
 
 ## LICENSE
 
