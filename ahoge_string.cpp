@@ -229,9 +229,9 @@ std::u32string String::to_utf32() const noexcept {
 	return std::u32string(data.begin(), data.end());
 }
 
-size_t StringBuffer::add(String const &str) noexcept {
+StringBuffer &StringBuffer::add(String const &str) noexcept {
 	list.push_back(str);
-	return list.size() - 1;
+	return *this;
 }
 
 ulong StringBuffer::get_total_size() const noexcept {

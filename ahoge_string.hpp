@@ -90,7 +90,7 @@ private:
 	std::vector<String> list;
 
 public:
-	size_t add(String const &str) noexcept;
+	StringBuffer &add(String const &str) noexcept;
 	ulong get_total_size() const noexcept;
 	String to_string() const noexcept;
 };
