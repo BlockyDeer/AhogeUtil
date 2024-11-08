@@ -62,7 +62,7 @@ String::String(const char *str) noexcept {
 
 	if (iconv(u8tou32, &in_buf, &in_bytes_left, &out_buf,
 		  &out_bytes_left) == ICONV_FAILED) {
-		// TODO: 错误处理
+		AhogeUtil::Error("iconv failed.").panic();
 	}
 	data.resize((std_str.size() * sizeof(uint32_t) - out_bytes_left) /
 		    sizeof(uint32_t));
@@ -150,13 +150,9 @@ String String::sub_string(size_t index_start, size_t index_end) const noexcept {
 
 rune String::operator[](size_t index) noexcept { return data[index]; }
 
-bool String::equals(String const &other) noexcept {
-	return data == other.data;
-}
+bool String::equals(String const &other) noexcept { return data == other.data; }
 
-bool String::operator==(String const &other) noexcept {
-	return equals(other);
-}
+bool String::operator==(String const &other) noexcept { return equals(other); }
 
 size_t String::find(rune r) noexcept {
 	auto iter = std::find(data.begin(), data.end(), r);
@@ -208,6 +204,29 @@ String String::replace_all(String &str, String const &replace_str) noexcept {
 	return s;
 }
 
+AhogeUtil::String String::trim() noexcept {
+	if (data.size() == 0) return AhogeUtil::String();
+	size_t begin = 0;
+	for (; begin < data.size(); begin++) {
+		if (!is_blank(data[begin])) {
+			break;
+		}
+	}
+
+
+
+	size_t end = data.size() - 1;
+	for (; end != begin; end--) {
+		if (!is_blank(data[end])) {
+			if (end != data.size()) end++;
+			break;
+		}
+	}
+
+	std::cout << begin << " " << end << std::endl;
+	return sub_string(begin, end);
+}
+
 std::string String::to_utf8() noexcept {
 	size_t in_bytes_left = data.size() * sizeof(uint32_t);
 	size_t out_bytes_left = in_bytes_left;
@@ -252,4 +271,8 @@ String StringBuffer::to_string() const noexcept {
 }
 
 rune to_rune(char ch) noexcept { return (rune)ch; }
+
+bool is_blank(rune r) noexcept {
+	return r == to_rune(' ') || r == to_rune('	') || r == ('\n');
+}
 }  // namespace AhogeUtil

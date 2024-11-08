@@ -24,6 +24,7 @@ extern iconv_t u32tou8;
 constexpr size_t string_null_pos = UINT32_MAX;
 
 rune to_rune(char ch) noexcept;
+bool is_blank(rune r) noexcept;
 
 class Error;
 
@@ -80,6 +81,8 @@ public:
 
 	std::vector<String> split(String const &str,
 				  rune separator = to_rune(' ')) noexcept;
+
+	AhogeUtil::String trim() noexcept;
 
 	std::string to_utf8() noexcept;
 	std::u32string to_utf32() const noexcept;
