@@ -2,3 +2,4 @@
 build/
 test.cpp
 test
+*.kate-swp
