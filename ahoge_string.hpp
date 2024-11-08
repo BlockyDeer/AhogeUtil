@@ -76,6 +76,8 @@ public:
 	size_t find(char *str) noexcept;
 	size_t find(const char *str) noexcept;
 
+	size_t rfind(rune r) noexcept;
+
 	String replace(String &str, String const &replace_str) noexcept;
 	String replace_all(String &replace_str, String const &res_str) noexcept;
 

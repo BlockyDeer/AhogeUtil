@@ -49,6 +49,10 @@ void String::cleanup() noexcept {
 String::String() noexcept {}
 
 String::String(const char *str) noexcept {
+	if (str == nullptr || str[0] == '\0') {
+		return;
+	}
+
 	std::string std_str(str);
 	size_t in_bytes_left = std_str.size();
 	size_t out_bytes_left = in_bytes_left * sizeof(uint32_t);
@@ -163,6 +167,15 @@ size_t String::find(rune r) noexcept {
 	}
 }
 
+size_t String::rfind(rune r) noexcept {
+	auto iter = std::find(data.rbegin(), data.rend(), r);
+	if (iter == data.rend()) {
+		return string_null_pos;
+	} else {
+		return data.size() - (iter - data.rbegin()) - 1;
+	}
+}
+
 size_t String::find(String &str) noexcept {
 	auto iter = std::search(data.begin(), data.end(), str.data.begin(),
 				str.data.end());
@@ -212,9 +225,6 @@ AhogeUtil::String String::trim() noexcept {
 			break;
 		}
 	}
-
-
-
 	size_t end = data.size() - 1;
 	for (; end != begin; end--) {
 		if (!is_blank(data[end])) {
@@ -228,6 +238,10 @@ AhogeUtil::String String::trim() noexcept {
 }
 
 std::string String::to_utf8() noexcept {
+	if (data.empty()) {
+		return std::string();
+	}
+
 	size_t in_bytes_left = data.size() * sizeof(uint32_t);
 	size_t out_bytes_left = in_bytes_left;
 
