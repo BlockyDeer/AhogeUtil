@@ -81,6 +81,9 @@ public:
 	String replace(String &str, String const &replace_str) noexcept;
 	String replace_all(String &replace_str, String const &res_str) noexcept;
 
+	std::pair<String, String> separate(rune r) noexcept;
+	std::pair<String, String> separate(String &str) noexcept;
+
 	std::vector<String> split(String const &str,
 				  rune separator = to_rune(' ')) noexcept;
 

@@ -16,6 +16,7 @@
 #include <cstring>
 #include <iomanip>
 #include <iostream>
+#include <optional>
 #include <string>
 #include <utility>
 
@@ -215,6 +216,28 @@ String String::replace_all(String &str, String const &replace_str) noexcept {
 		iter = s.find(str);
 	}
 	return s;
+}
+
+std::pair<String, String> String::separate(rune r) noexcept {
+	size_t pos = find(r);
+	if (pos == string_null_pos) {
+		return std::make_pair(*this, String());
+	}
+	if (pos + 1 == size()) {
+		return std::make_pair(sub_string(0, pos), String());
+	}
+	return std::make_pair(sub_string(0, pos), sub_string(pos + 1, size()));
+}
+
+std::pair<String, String> String::separate(String &str) noexcept {
+	size_t pos = find(str);
+	if (pos == string_null_pos) {
+		return std::make_pair(*this, String());
+	}
+	if (pos + 1 == size()) {
+		return std::make_pair(sub_string(0, pos), String());
+	}
+	return std::make_pair(sub_string(0, pos), sub_string(pos + str.size(), size()));
 }
 
 AhogeUtil::String String::trim() noexcept {
