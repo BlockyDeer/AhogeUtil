@@ -84,8 +84,7 @@ public:
 	std::pair<String, String> separate(rune r) noexcept;
 	std::pair<String, String> separate(String &str) noexcept;
 
-	std::vector<String> split(String const &str,
-				  rune separator = to_rune(' ')) noexcept;
+	std::vector<String> split(rune separator = to_rune(' ')) noexcept;
 
 	AhogeUtil::String trim() noexcept;
 

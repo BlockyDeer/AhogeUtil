@@ -237,7 +237,26 @@ std::pair<String, String> String::separate(String &str) noexcept {
 	if (pos + 1 == size()) {
 		return std::make_pair(sub_string(0, pos), String());
 	}
-	return std::make_pair(sub_string(0, pos), sub_string(pos + str.size(), size()));
+	return std::make_pair(sub_string(0, pos),
+			      sub_string(pos + str.size(), size()));
+}
+
+std::vector<String> String::split(rune separator) noexcept {
+	std::vector<String> res;
+	size_t before = 0;
+	if (data.empty()) {
+		res.push_back(String());
+		return res;
+	}
+
+	for (size_t i = 0; i < size(); i++) {
+		if (data[i] == separator) {
+			res.push_back(sub_string(before, i));
+			before = i + 1;
+		}
+	}
+	res.push_back(sub_string(before));
+	return res;
 }
 
 AhogeUtil::String String::trim() noexcept {
