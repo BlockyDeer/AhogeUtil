@@ -89,6 +89,14 @@ String::String(String &&other) noexcept { data = std::move(other.data); }
 
 String::String(rune r) noexcept { data.push_back(r); }
 
+String::String(char ch) noexcept : String(to_rune(ch)) {}
+
+String::String(rune r, size_t count) noexcept {
+	data = std::vector<rune>(count, r);
+}
+
+String::String(char ch, size_t count) noexcept : String(to_rune(ch), count){}
+
 String::String(String const &other) noexcept {
 	data = std::vector<rune>(other.data);
 }

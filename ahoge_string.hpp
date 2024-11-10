@@ -37,7 +37,9 @@ public:
 	static void cleanup() noexcept;
 	String() noexcept;
 	String(rune r) noexcept;
-	String(rune *ch) noexcept;
+	String(char ch) noexcept;
+	String(rune r, size_t count) noexcept;
+	String(char ch, size_t count) noexcept;
 	String(std::u32string const &str) noexcept;
 	String(std::vector<rune> &vec) noexcept;
 	String(const char *str) noexcept;
