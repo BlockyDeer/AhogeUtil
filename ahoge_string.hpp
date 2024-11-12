@@ -53,10 +53,10 @@ public:
 	bool is_empty() const noexcept;
 	rune *raw() const noexcept;
 
-	rune operator[](size_t index) noexcept;
+	rune operator[](size_t index) const noexcept;
 
-	bool equals(String const &other) noexcept;
-	bool operator==(String const &other) noexcept;
+	bool equals(String const &other) const noexcept;
+	bool operator==(String const &other) const noexcept;
 
 	String add(char *str) const noexcept;
 	String add(std::string const &str) const noexcept;

@@ -161,11 +161,11 @@ String String::sub_string(size_t index_start, size_t index_end) const noexcept {
 	return res;
 }
 
-rune String::operator[](size_t index) noexcept { return data[index]; }
+rune String::operator[](size_t index) const noexcept { return data[index]; }
 
-bool String::equals(String const &other) noexcept { return data == other.data; }
+bool String::equals(String const &other) const noexcept { return data == other.data; }
 
-bool String::operator==(String const &other) noexcept { return equals(other); }
+bool String::operator==(String const &other) const noexcept { return equals(other); }
 
 size_t String::find(rune r) noexcept {
 	auto iter = std::find(data.begin(), data.end(), r);
